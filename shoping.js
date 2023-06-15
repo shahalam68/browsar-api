@@ -1,3 +1,12 @@
+
+const displayLocalStorageCart = () =>{
+    const cart = getCart();
+    for(name in cart){
+        displayProduct(name);
+    }
+}
+
+
 const addItem =()=>{
     const nameField = document.getElementById('product-name');
     const name = nameField.value;
@@ -32,7 +41,17 @@ const getCart = () =>{
 }
 const addProductToCart = name =>{
     const cart = getCart();
-    cart[name] = 1;
+    if(cart[name]){   
+    cart[name] = cart[name]+1;
+    }
+    else{
+        cart[name] = 1;
+    }
     const cartStringified = JSON.stringify(cart);
     localStorage.setItem('cart', cartStringified);
 }
+const placeOrder = () =>{
+    document.getElementById('products').textContent = '';
+    localStorage.removeItem('cart');
+}
+displayLocalStorageCart()
